@@ -1,0 +1,57 @@
+# Common Docker errors and quick fixes:
+
+## Port Already in Use
+Error: "port is already allocated"
+Fix: Stop existing containers or use different ports
+  docker stop $(docker ps -aq)  # Stop all containers
+  docker rm $(docker ps -aq)   # Remove all containers
+
+## Requirements.txt Missing
+Error: "COPY failed: file not found"
+Fix: Make sure requirements.txt exists in backend directory
+  cd backend && ls -la  # Verify file exists
+
+## npm build fails
+Error: "npm run build exited with code 1"
+Fix: Check package.json scripts, install dependencies
+  cd frontend && npm install && npm run build
+
+## Permission denied
+Error: "permission denied" for non-root user
+Fix: Check file ownership in Dockerfile
+
+## Health check fails
+Error: Container exits due to health check
+Fix: Ensure your application responds on the expected endpoint
+  - Backend: http://localhost:8000/health
+  - Frontend: http://localhost:3000/
+
+## Environment variables missing
+Error: Application crashes due to missing configs
+Fix: Pass required environment variables
+  docker run -e JWT_SECRET=your_secret ...
+
+## Database connection issues
+Error: Cannot connect to database
+Fix: Use docker-compose with a database service
+  # Add database to docker-compose.yml:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: todo_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+## Docker build cache issues
+Error: Build fails due to cached layers
+Fix: Build without cache
+  docker build --no-cache -t todo-backend:latest .
+
+## Windows-specific issues
+Error: Line ending issues in shell scripts
+Fix: Ensure scripts use CRLF on Windows or convert to LF
+  # In Git: git config core.autocrlf false

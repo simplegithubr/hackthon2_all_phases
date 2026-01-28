@@ -1,0 +1,32 @@
+# Commands to verify everything is working:
+
+# 1. Check running containers
+docker ps
+
+# 2. See backend logs
+docker logs todo-backend
+
+# 3. See frontend logs
+docker logs todo-frontend
+
+# 4. Test the applications
+# Open in browser: http://localhost:8000 (backend health check)
+# Open in browser: http://localhost:3000 (frontend UI)
+
+# 5. Stop containers
+docker stop todo-backend todo-frontend
+
+# 6. Remove containers
+docker rm todo-backend todo-frontend
+
+# 7. With Docker Compose - start both services
+docker-compose up -d
+
+# 8. With Docker Compose - check logs
+docker-compose logs
+
+# 9. With Docker Compose - stop services
+docker-compose down
+
+# 10. Clean up images (optional)
+docker rmi todo-backend:latest todo-frontend:latest

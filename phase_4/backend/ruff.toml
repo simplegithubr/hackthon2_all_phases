@@ -1,0 +1,17 @@
+[lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+ignore = []
+fixable = ["ALL"]
+exclude = [
+  ".git",
+  ".venv",
+  "venv",
+  "__pycache__",
+  "*.egg-info",
+]
+
+[format]
+indent-style = "space"
+line-ending = "lf"
+quote-style = "double"
+skip-magic-trailing-comma = false

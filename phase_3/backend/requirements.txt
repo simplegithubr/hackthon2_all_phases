@@ -1,0 +1,36 @@
+# FastAPI and ASGI server
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+
+# SQLModel and Database
+sqlmodel>=0.0.22
+pydantic>=2.10.0
+pydantic-settings>=2.7.0
+
+# Async PostgreSQL driver
+# Updated to 0.30.0+ for Python 3.13 support with pre-built wheels
+asyncpg>=0.30.0
+
+# Database migrations
+alembic==1.13.1
+
+# Authentication
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+
+# Linting and Formatting
+ruff==0.1.13
+black==23.12.1
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.23.3
+httpx==0.26.0
+
+# AI/ML
+# Using OpenAI SDK with OpenRouter API
+openai>=1.12.0
+# Removed Google Generative AI package as we're now using OpenRouter
+
+# Development
+python-dotenv==1.0.0

@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Soft gradient background for the entire app */
+body {
+  background: linear-gradient(135deg, #fdf4ff 0%, #e0f2fe 25%, #f0f9ff 50%, #fce7f3 75%, #fdf4ff 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Glassmorphism utility classes */
+@layer utilities {
+  .glass {
+    @apply bg-white/60 backdrop-blur-xl border border-white/20 shadow-glass;
+  }
+
+  .glass-hover {
+    @apply bg-white/70 backdrop-blur-xl border border-white/30 shadow-glass-hover;
+  }
+
+  .glass-card {
+    @apply bg-white/60 backdrop-blur-lg border border-white/20 rounded-2xl shadow-glass;
+  }
+
+  .glass-sidebar {
+    @apply bg-indigo-950/90 backdrop-blur-xl border-r border-indigo-800/30;
+  }
+
+  .glass-input {
+    @apply bg-white/50 backdrop-blur-sm border border-white/20 focus:bg-white/70 focus:border-white/40 transition-all;
+  }
+
+  .glass-button {
+    @apply bg-white/60 hover:bg-white/80 backdrop-blur-sm border border-white/20 transition-all;
+  }
+}
+
+/* Blob background animation for auth pages */
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Modal animation */
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-modal-in {
+  animation: modalIn 200ms ease-out forwards;
+}
+
+/* Float animation for landing page icon */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 500ms ease-out forwards;
+}
+
+/* Line clamp for task descriptions */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Smooth transitions for interactive elements */
+button, input, a {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Remove transition from non-interactive elements for performance */
+body {
+  transition: none;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.5);
+}
+
+/* Hide navbar on tasks page (which has sidebar) */
+.tasks-page .auth-navbar {
+  display: none !important;
+}
+
+/* Navbar styling for auth pages (login/signup) */
+.auth-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.auth-navbar nav {
+  background: transparent !important;
+  box-shadow: none !important;
+}
