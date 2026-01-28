@@ -1,0 +1,10 @@
+node_modules/
+__pycache__/
+.env
+.env.example
+tmpclaude-*
+nuln
+nul
+.next/
+
+
