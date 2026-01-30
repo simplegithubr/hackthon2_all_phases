@@ -25,7 +25,10 @@ spec:
         - name: JWT_SECRET
           value: "mysecretkey"
         - name: OPENROUTER_API_KEY
-          value: "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"
+          valueFrom:
+            secretKeyRef:
+              name: todo-backend-secrets
+              key: openrouter-api-key
         - name: DEV_MODE
           value: "true"
 ---

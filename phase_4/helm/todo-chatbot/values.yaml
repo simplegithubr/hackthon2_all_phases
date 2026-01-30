@@ -13,7 +13,6 @@ backend:
     port: 8000
   env:
     JWT_SECRET: "mysecretkey"
-    OPENROUTER_API_KEY: "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"
     DEV_MODE: "true"
 
 frontend:

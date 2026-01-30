@@ -48,6 +48,8 @@ WORKDIR /app
 COPY --from=builder /root/.local /home/appuser/.local
 COPY . .
 
+
+
 # Change ownership to the non-root user
 RUN chown -R appuser:appuser /app
 

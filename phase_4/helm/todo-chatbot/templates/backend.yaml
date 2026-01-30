@@ -28,7 +28,10 @@ spec:
             - name: JWT_SECRET
               value: {{ .Values.backend.env.JWT_SECRET | quote }}
             - name: OPENROUTER_API_KEY
-              value: {{ .Values.backend.env.OPENROUTER_API_KEY | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: todo-backend-secrets
+                  key: openrouter-api-key
             - name: DEV_MODE
               value: {{ .Values.backend.env.DEV_MODE | quote }}
 ---

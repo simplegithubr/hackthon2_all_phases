@@ -1,6 +1,19 @@
 version: '3.8'
 
 services:
+  db:
+    image: postgres:15
+    container_name: todo-postgres
+    environment:
+      - POSTGRES_DB=todo_db
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
   backend:
     build: ./backend
     container_name: todo-backend
@@ -8,9 +21,14 @@ services:
       - "8000:8000"
     environment:
       - ENVIRONMENT=production
-      - DATABASE_URL=postgresql://user:password@db:5432/todo_db
+      - DATABASE_URL=postgresql+asyncpg://user:password@db:5432/todo_db
       - JWT_SECRET=${JWT_SECRET:-your-secret-key-here}
-      - USE_AI_SERVICES=false
+      - USE_AI_SERVICES=true
+      - DEV_MODE=true
+      - ALLOWED_HOSTS=localhost,127.0.0.1,backend
+      - CORS_ORIGINS=http://localhost:3000,http://localhost:3001,http://backend:3000
+    depends_on:
+      - db
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
@@ -36,6 +54,9 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
+
+volumes:
+  postgres_data:
 
 networks:
   default:

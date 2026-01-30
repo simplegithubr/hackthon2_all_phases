@@ -18,6 +18,8 @@ load_dotenv()
 
 
 
+
+
 def validate_environment():
     required_vars = ["JWT_SECRET"]
 
