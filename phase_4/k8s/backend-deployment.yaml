@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: todo-backend-deployment
+  namespace: todo-app
   labels:
     app: todo-backend
 spec:
@@ -16,7 +17,8 @@ spec:
     spec:
       containers:
       - name: todo-backend
-        image: todo-backend:latest
+        image: phase_4-backend:latest
+        imagePullPolicy: Never
         ports:
         - containerPort: 8000
         env:
@@ -28,7 +30,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: todo-backend-secrets
-              key: openrouter-api-key
+              key: OPENROUTER_API_KEY
         - name: DEV_MODE
           value: "true"
 ---
@@ -36,6 +38,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: todo-backend-service
+  namespace: todo-app
 spec:
   selector:
     app: todo-backend

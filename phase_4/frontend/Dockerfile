@@ -33,6 +33,9 @@ WORKDIR /app
 # Copy necessary files from the builder stage
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone/. ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+# Copy environment file explicitly
+COPY .env.local .env
+
 
 # Switch to the non-root user
 USER nextjs

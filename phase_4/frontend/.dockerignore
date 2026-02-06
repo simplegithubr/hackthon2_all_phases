@@ -8,7 +8,7 @@ Dockerfile
 *.log
 npm-debug.log*
 __pycache__/
-.env.local
+
 .env.local.example
 .env.production
 .env.production.local

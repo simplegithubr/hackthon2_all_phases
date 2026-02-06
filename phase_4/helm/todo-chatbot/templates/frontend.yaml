@@ -16,6 +16,10 @@ spec:
         {{- include "todo-chatbot.selectorLabels" . | nindent 8 }}
         app: todo-frontend
     spec:
+      initContainers:
+      - name: wait-for-backend
+        image: busybox:1.28
+        command: ['sh', '-c', 'until nc -z {{ include "todo-chatbot.backend.fullname" . }} 8000; do echo waiting for backend; sleep 2; done']
       containers:
         - name: todo-frontend
           image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"

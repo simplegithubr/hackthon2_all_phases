@@ -31,9 +31,31 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: todo-backend-secrets
-                  key: openrouter-api-key
+                  key: OPENROUTER_API_KEY
             - name: DEV_MODE
               value: {{ .Values.backend.env.DEV_MODE | quote }}
+          startupProbe:
+            tcpSocket:
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 30
+          readinessProbe:
+            tcpSocket:
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+          livenessProbe:
+            tcpSocket:
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          resources: {}
 ---
 apiVersion: v1
 kind: Service

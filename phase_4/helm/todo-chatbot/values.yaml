@@ -5,22 +5,22 @@
 backend:
   replicaCount: 1
   image:
-    repository: todo-backend
+    repository: phase_4-backend
     tag: latest
-    pullPolicy: IfNotPresent
+    pullPolicy: Never
   service:
-    type: ClusterIP
+    type: NodePort
     port: 8000
   env:
     JWT_SECRET: "mysecretkey"
     DEV_MODE: "true"
 
 frontend:
-  replicaCount: 2
+  replicaCount: 1
   image:
-    repository: todo-frontend
+    repository: phase_4-frontend
     tag: latest
-    pullPolicy: IfNotPresent
+    pullPolicy: Never
   service:
     type: NodePort
     port: 3000
