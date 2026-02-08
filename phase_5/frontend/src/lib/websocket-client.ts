@@ -3,6 +3,8 @@
  * Connects to WebSocket service and receives live task updates
  */
 
+import React from 'react';
+
 type TaskUpdateEvent = {
   event_type: 'task.created' | 'task.updated' | 'task.completed' | 'task.deleted';
   user_id: string;
