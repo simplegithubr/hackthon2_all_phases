@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: audit-log-service
+  labels:
+    app: audit-log-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: audit-log-service
+  template:
+    metadata:
+      labels:
+        app: audit-log-service
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "audit-log-service"
+        dapr.io/app-port: "8003"
+        dapr.io/log-level: "info"
+    spec:
+      containers:
+      - name: audit-log-service
+        image: audit-log-service:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8003
+        env:
+        - name: LOG_LEVEL
+          value: "INFO"
+        volumeMounts:
+        - name: audit-logs
+          mountPath: /tmp
+      volumes:
+      - name: audit-logs
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: audit-log-service
+spec:
+  selector:
+    app: audit-log-service
+  ports:
+  - protocol: TCP
+    port: 8003
+    targetPort: 8003
+  type: ClusterIP

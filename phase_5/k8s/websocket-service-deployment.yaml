@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: websocket-service
+  namespace: todo-app
+  labels:
+    app: websocket-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: websocket-service
+  template:
+    metadata:
+      labels:
+        app: websocket-service
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "websocket-service"
+        dapr.io/app-port: "8004"
+        dapr.io/log-level: "info"
+    spec:
+      containers:
+      - name: websocket-service
+        image: websocket-service:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8004
+        env:
+        - name: DAPR_HTTP_PORT
+          value: "3500"
+        - name: PUBSUB_NAME
+          value: "kafka-pubsub"
+        - name: TOPIC_NAME
+          value: "task-updates"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: websocket-service
+  namespace: todo-app
+spec:
+  selector:
+    app: websocket-service
+  ports:
+  - protocol: TCP
+    port: 8004
+    targetPort: 8004
+  type: NodePort

@@ -1,0 +1,1 @@
+"""Event schemas and types for event-driven architecture"""
